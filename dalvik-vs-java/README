@@ -1,0 +1,11 @@
+# to compile java
+javac Foo.java
+
+# decode java class
+javap -v Foo.class
+
+# conver to dex
+Android/Sdk/build-tools/26.0.2/dx --dex --output Foo.dex Foo.class
+
+# dex dump
+Android/Sdk/build-tools/26.0.2/dexdump -d Foo.dex
