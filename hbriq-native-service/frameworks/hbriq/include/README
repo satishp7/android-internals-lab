@@ -1,0 +1,22 @@
+All files in this directory will be generated using aidl-cpp command
+
+How to aidl-cpp ?
+usage: aidl-cpp INPUT_FILE HEADER_DIR OUTPUT_FILE
+
+e.g.
+aidl-cpp hbriq-native-service/frameworks/hbriq/aidl/IHbriq/IHbriqService.aidl hbriq-native-service/frameworks/hbriq/include/ hbriq-native-service/frameworks/hbriq/interface/IHbriqService.cpp
+
+Note: 
+IHriq dir will be created as per package name defined in IHbriqService.aidl
+
+So, what's inside
+include/IHbriq: 
+BnHbriqService.h    : Native side 
+BpHbriqService.h    : Proxy side 
+IHbriqService.h     : main interface file
+
+Generated interface file
+hbriq-native-service/frameworks/hbriq/interface/IHbriqService.cpp
+
+Note:
+Android.bp has to be created manually for interface build

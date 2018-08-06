@@ -1,0 +1,4 @@
+subdirs = [ 
+    "frameworks/hbriq/interface", 
+    "frameworks/hbriq/service" 
+]
