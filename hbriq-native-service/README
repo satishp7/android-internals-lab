@@ -1,0 +1,70 @@
+# Before we start - how to interpret terminology
+
+IInterface - 'I' stands for interface
+IBinder
+
+BnInterface - 'Bn': Base Native
+BpInterface - 'Bp': Base Proxy
+
+
+# Flow
+client <--> Bp <==> Interface <==> Bn <--> Server (Service)
+
+Bn<service name>.h 	: onTransact() method
+Bp<service name>.h	: all method (marshalling)
+I<service name>.h	: Declare meta interface (DECLARE_META_INTERFACE)
+I<service name>.cpp	: Implement meta interface (IMPLEMENT_META_INTERFACE)
+
+# clone the repo
+# recommendation location is <AOSP DIR>/external/
+
+# what's there ??
+frameworks/hbriq/aidl		: interface declaration
+frameworks/hbriq/interface	: interface implementation
+
+frameworks/hbriq/include	: stub + proxy headers
+frameworks/hbriq/service	: service implementation
+
+# use aidl-cpp to generate required proxy + native stub implementation. In this
+case its already generated. If any changes required to aidl file, then use this command
+
+How to use 'aidl-cpp' ?
+usage: aidl-cpp INPUT_FILE HEADER_DIR OUTPUT_FILE
+
+e.g.
+aidl-cpp hbriq-native-service/frameworks/hbriq/aidl/IHbriq/IHbriqService.aidl hbriq-native-service/frameworks/hbriq/include/ hbriq-native-service/frameworks/hbriq/interface/IHbriqService.cpp
+
+
+# implement methods declared at (in case new methods are added)
+IHbriqService.h  to service/HbriqService.h/.cpp
+
+
+# Add hbriqservice to product packages
+PRODUCT_PACKAGES += \
+...
+    hbriqservice
+...
+
+# build image
+# or build only service module with
+mmma <AOSP DIR>/external/hbriq-native-service/frameworks/hbriq/interface
+mmma <AOSP DIR>/external/hbriq-native-service/frameworks/hbriq/service
+
+# flash the image and boot target/emulator
+
+# run the system service on your target by doing this:
+# hbriqservice &
+
+You can use this to check that it runs:
+# service list
+
+# call service APIs:
+# service call HBriqService service 1 i16 testdev
+or
+# service call HBriqService 2
+
+# logcat - help your self
+
+Satish Patel
+satish@hivebriq.com
+tosatishpatel@gmail.com
