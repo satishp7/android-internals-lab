@@ -14,8 +14,12 @@ class IHbriqService : public ::android::IInterface {
 public:
 DECLARE_META_INTERFACE(HbriqService)
 virtual ::android::binder::Status openDevice(const ::android::String16& dev, int32_t* _aidl_return) = 0;
+virtual ::android::binder::Status getValue(int32_t* _aidl_return) = 0;
+virtual ::android::binder::Status setValue(int32_t val, int32_t* _aidl_return) = 0;
 enum Call {
   OPENDEVICE = ::android::IBinder::FIRST_CALL_TRANSACTION + 0,
+  GETVALUE = ::android::IBinder::FIRST_CALL_TRANSACTION + 1,
+  SETVALUE = ::android::IBinder::FIRST_CALL_TRANSACTION + 2,
 };
 };  // class IHbriqService
 

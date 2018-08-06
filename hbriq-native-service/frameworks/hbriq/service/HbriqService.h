@@ -35,7 +35,22 @@ public:
         *_aidl_return = ret;
         return binder::Status::ok();
     }
+
+    virtual ::android::binder::Status getValue(int32_t* _aidl_return) {
+        int ret = getValue();
+        *_aidl_return = ret;
+        return binder::Status::ok();
+    }
+    virtual ::android::binder::Status setValue(int32_t val, int32_t* _aidl_return) {
+        int ret = setValue(val);
+        *_aidl_return = ret;
+        return binder::Status::ok();
+    }
+
+    // local methods
     int openDevice(String16 dev);
+    int getValue();
+    int setValue(int val);
 };
 
 #endif /* __HBRIQ_SERVICE_H__ */

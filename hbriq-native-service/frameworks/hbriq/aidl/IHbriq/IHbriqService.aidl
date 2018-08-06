@@ -27,4 +27,6 @@ package IHbriq;
 
 interface IHbriqService {
     int openDevice(in String dev);
+    int getValue();
+    int setValue(int val);
 }

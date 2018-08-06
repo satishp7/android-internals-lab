@@ -36,6 +36,18 @@ int HbriqService::openDevice(String16 dev)
   return 0;
 }
 
+int HbriqService::setValue(int val)
+{
+  ALOGD("HbriqService::setValue ==> value:%d", val);
+  return 0;
+}
+
+int HbriqService::getValue()
+{
+  ALOGD("HbriqService::getValue ==> returning dummy '82'");
+  return 82;
+}
+
 status_t HbriqService::dump(int fd, const Vector<String16>& args) {
     ALOGD("HbriqService:dump ==> called from dumpsys");
     return NO_ERROR;
@@ -43,8 +55,13 @@ status_t HbriqService::dump(int fd, const Vector<String16>& args) {
 
 int main(int /* argc */, char** /*argv*/)
 {
+    /* Let's add the service and register with service manager */
     defaultServiceManager()->addService(String16("HBriqService"), new HbriqService());
+
+    /* starts the Binder thread pool for that process */
     ProcessState::self()->startThreadPool();
+
+    /* calling into the thread pool to serve incoming transactions */
     IPCThreadState::self()->joinThreadPool();
     return 0;
 }
